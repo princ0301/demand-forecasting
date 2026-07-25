@@ -1,5 +1,6 @@
 import polars as pl
 
+
 def add_calendar_features(df: pl.DataFrame) -> pl.DataFrame:
     df = df.with_columns([
         pl.col("date").dt.weekday().alias("day_of_week"),
@@ -14,5 +15,5 @@ def add_calendar_features(df: pl.DataFrame) -> pl.DataFrame:
           .otherwise(0)
           .alias("is_snap"),
     ])
- 
-    return df.drop(["event_name_1", "snap_CA", "snap_TX", "snap_WI"])
+
+    return df.drop(["event_name_1", "event_type_1", "snap_CA", "snap_TX", "snap_WI"])

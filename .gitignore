@@ -11,7 +11,7 @@ wheels/
 data/raw/
 data/interim/
 data/processed/
-models/
+# models/
 mlruns/
 *.pyc
 .env

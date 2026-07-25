@@ -19,4 +19,8 @@ features:
   lags: [7, 14, 28]
   rolling_windows: [7, 28]
 
+evaluation:
+  horizon: 28
+  weight_window: 28
+
 random_seed: 42
