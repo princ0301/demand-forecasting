@@ -1,0 +1,18 @@
+paths:
+  raw_dir: data/raw
+  interim_dir: data/interim
+  processed_dir: data/processed
+  models_dir: models
+
+raw_files:
+  sales: sales_train_validation.csv
+  calendar: calendar.csv
+  prices: sell_prices.csv
+
+data:
+  category_filter: FOODS
+  drop_christmas: true
+  christmas_month: 12
+  christmas_day: 25
+
+random_seed: 42
