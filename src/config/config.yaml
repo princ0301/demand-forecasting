@@ -15,4 +15,8 @@ data:
   christmas_month: 12
   christmas_day: 25
 
+features:
+  lags: [7, 14, 28]
+  rolling_windows: [7, 28]
+
 random_seed: 42
