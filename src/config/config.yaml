@@ -23,4 +23,66 @@ evaluation:
   horizon: 28
   weight_window: 28
 
+models:
+  lightgbm:
+    num_boost_round: 500
+    params:
+      objective: tweedie
+      tweedie_variance_power: 1.1
+      metric: rmse
+      learning_rate: 0.05
+      num_leaves: 128
+      min_data_in_leaf: 50
+      feature_fraction: 0.8
+      bagging_fraction: 0.8
+      bagging_freq: 1
+      max_bin: 255
+      verbosity: -1
+      seed: 42
+
+  xgboost:
+    num_boost_round: 500
+    params:
+      objective: reg:squarederror
+      eval_metric: rmse
+      learning_rate: 0.05
+      max_depth: 8
+      min_child_weight: 50
+      subsample: 0.8
+      colsample_bytree: 0.8
+      tree_method: hist
+      seed: 42
+
+  lstm:
+    lookback: 28
+    hidden_size: 64
+    embedding_dim: 8
+    num_layers: 2
+    epochs: 5
+    batch_size: 512
+    learning_rate: 0.001
+    stride: 14
+
+  nbeats:
+    lookback: 28
+    hidden_size: 128
+    embedding_dim: 8
+    num_blocks: 3
+    num_fc_layers: 3
+    epochs: 5
+    batch_size: 512
+    learning_rate: 0.001
+    stride: 14
+
+  tft:
+    history_days: 500
+    lookback: 28
+    hidden_size: 32
+    attention_head_size: 4
+    dropout: 0.1
+    hidden_continuous_size: 16
+    epochs: 5
+    batch_size: 256
+    learning_rate: 0.001
+
 random_seed: 42

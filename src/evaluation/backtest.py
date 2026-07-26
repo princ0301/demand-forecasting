@@ -60,7 +60,18 @@ def evaluate_predictions(
     weights = compute_series_weights(train, weight_window)
     scales = compute_series_scale(train)
 
-    merged = test.select(["id", "date", "sales"]).join(predictions, on=["id", "date"]).to_pandas()
+    # predictions may come back from a pandas round-trip with plain string ids
+    # and datetime-typed dates, while test carries categorical ids and date-typed
+    # dates, casting both sides to the same types keeps this join model-agnostic
+    test_keys = test.select(["id", "date", "sales"]).with_columns([
+        pl.col("id").cast(pl.Utf8),
+        pl.col("date").cast(pl.Date),
+    ])
+    predictions_keys = predictions.with_columns([
+        pl.col("id").cast(pl.Utf8),
+        pl.col("date").cast(pl.Date),
+    ])
+    merged = test_keys.join(predictions_keys, on=["id", "date"]).to_pandas()
 
     rmsse_scores = {}
     rmse_scores = {}
