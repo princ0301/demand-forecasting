@@ -3,6 +3,7 @@ from pathlib import Path
 
 import polars as pl
 
+from mlops.mlflow.mlflow_config import log_run
 from src.evaluation.backtest import evaluate_predictions, train_test_split
 from src.models.baseline import NaiveModel, SeasonalNaiveModel
 from src.models.lightgbm_model import LightGBMModel
@@ -70,6 +71,9 @@ def run_models(config: dict, model_names: list[str]) -> dict:
         model.fit(train)
         predictions = model.predict(test)
         results[name] = evaluate_predictions(train, test, predictions, weight_window)
+
+        params = config["models"].get(name, {})
+        log_run(name, params, results[name])
 
     return results
 

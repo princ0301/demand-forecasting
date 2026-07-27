@@ -2,6 +2,7 @@ from pathlib import Path
 
 import modal
 
+from mlops.mlflow.mlflow_config import log_run
 from src.utils.io import load_config
 from src.utils.logger import get_logger
 
@@ -95,7 +96,7 @@ def train_nbeats_remote(config: dict) -> dict:
     return result
 
 
-@app.function(image=image, gpu="A10G", memory=32768, volumes={"/data": volume}, timeout=5400)
+@app.function(image=image, gpu="A10G", memory=32768, cpu=4, volumes={"/data": volume}, timeout=10800)
 def train_tft_remote(config: dict) -> dict:
     import polars as pl
 
@@ -149,3 +150,5 @@ def main(model: str = "lstm", epochs: int = 40):
 
     result = REMOTE_FUNCTIONS[model].remote(config)
     print(result)
+
+    log_run(model, config["models"][model], result)

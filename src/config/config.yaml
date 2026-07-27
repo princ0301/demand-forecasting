@@ -75,14 +75,14 @@ models:
     stride: 14
 
   tft:
-    history_days: 500
+    history_days: 120
     lookback: 28
     hidden_size: 32
     attention_head_size: 4
     dropout: 0.1
     hidden_continuous_size: 16
     epochs: 5
-    batch_size: 256
+    batch_size: 1024
     learning_rate: 0.001
 
 random_seed: 42
