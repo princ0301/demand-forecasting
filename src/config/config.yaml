@@ -16,8 +16,9 @@ data:
   christmas_day: 25
 
 features:
+  # Experiment 3: retain baseline lags and add short/medium rolling context.
   lags: [7, 14, 28]
-  rolling_windows: [7, 28]
+  rolling_windows: [3, 7, 14, 28, 56]
 
 evaluation:
   horizon: 28
@@ -39,6 +40,10 @@ models:
       max_bin: 255
       verbosity: -1
       seed: 42
+
+  tuning:
+    n_trials: 20
+    seed: 42
 
   xgboost:
     num_boost_round: 500
