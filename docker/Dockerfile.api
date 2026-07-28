@@ -4,6 +4,10 @@ WORKDIR /app
 
 RUN pip install --no-cache-dir uv
 
+# LightGBM's Linux wheel requires the OpenMP runtime at application startup.
+RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY pyproject.toml uv.lock* ./
 RUN uv sync --frozen --no-dev --no-install-project || uv sync --no-dev --no-install-project
 
