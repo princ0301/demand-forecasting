@@ -31,8 +31,8 @@ class LightGBMModel(RecursiveTreeModel):
         return self.model.predict(feature_matrix)
 
     def _save_native_model(self, path: Path) -> None:
-        self.model.save_model(str(path / "model.txt"))
+        self.model.save_model(str(path / "booster.txt"))
 
     def _load_native_model(self, path: Path) -> None:
         import lightgbm as lgb
-        self.model = lgb.Booster(model_file=str(path / "model.txt"))
+        self.model = lgb.Booster(model_file=str(path / "booster.txt"))
