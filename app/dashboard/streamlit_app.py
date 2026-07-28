@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 
@@ -12,7 +13,7 @@ from src.utils.io import load_config
 
 st.set_page_config(page_title="Demand Forecasting Dashboard", layout="wide")
 
-API_URL = "http://localhost:8000"
+API_URL = os.environ.get("API_URL", "http://localhost:8000")
 
 
 @st.cache_data
