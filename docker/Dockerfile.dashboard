@@ -9,6 +9,7 @@ RUN uv sync --frozen --no-dev --no-install-project || uv sync --no-dev --no-inst
 
 COPY src ./src
 COPY app ./app
+COPY models ./models
 
 EXPOSE 8501
 
