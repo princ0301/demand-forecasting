@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: demand-forecasting-api
+    runtime: docker
+    dockerfilePath: ./docker/Dockerfile.api
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: PORT
+        value: 8000
+
+  - type: web
+    name: demand-forecasting-dashboard
+    runtime: docker
+    dockerfilePath: ./docker/Dockerfile.dashboard
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: API_URL
+        fromService:
+          name: demand-forecasting-api
+          type: web
+          property: hostport
